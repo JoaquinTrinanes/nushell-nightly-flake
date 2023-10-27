@@ -9,10 +9,10 @@
     #   url = "github:hercules-ci/flake-parts";
     #   inputs.nixpkgs-lib.follows = "nixpkgs";
     # };
-    # hercules-ci-effects = {
-    #   url = "github:hercules-ci/hercules-ci-effects";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
+    hercules-ci-effects = {
+      url = "github:hercules-ci/hercules-ci-effects";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs = {
@@ -104,4 +104,15 @@
         ];
       };
     });
+
+  hercules-ci.flake-update = {
+    enable = true;
+    createPullRequest = false;
+    updateBranch = "main";
+    # Update everynight at midnight
+    when = {
+      hour = [0];
+      minute = 0;
+    };
+  };
 }
