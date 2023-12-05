@@ -26,5 +26,11 @@
       nushell = pkgs.callPackage ./nushell.nix commonArgs;
       default = self.packages.${system}.nushell;
     });
+
+    overlays.default = final: prev: let
+      system = prev.stdenv.hostPlatform.system;
+    in {
+      inherit (self.packages.${system}) nushell nushellFull;
+    };
   };
 }
