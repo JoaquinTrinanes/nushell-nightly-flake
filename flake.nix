@@ -20,7 +20,7 @@
       };
     in {
       nushellFull = pkgs.callPackage ./nushell.nix ({
-          buildFeatures = p: (p ++ ["extra" "dataframe"]);
+          additionalFeatures = p: (p ++ ["extra" "dataframe"]);
         }
         // commonArgs);
       nushell = pkgs.callPackage ./nushell.nix commonArgs;
