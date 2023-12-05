@@ -15,8 +15,8 @@
   nghttp2,
   libgit2,
   doCheck ? true,
-  withDefaultFeatures ? true,
-  additionalFeatures ? (p: p),
+  buildNoDefaultFeatures ? false,
+  buildFeatures ? (defaultFeatures: defaultFeatures),
   testers,
   nushell,
   nix-update-script,
@@ -27,6 +27,7 @@
   source = (import ./_sources/generated.nix {inherit fetchgit fetchurl fetchFromGitHub dockerTools;}).nushell;
 in
   rustPlatform.buildRustPackage {
+    inherit buildNoDefaultFeatures doCheck;
     inherit (source) pname version src;
 
     cargoLock = {
@@ -34,7 +35,7 @@ in
     };
     nativeBuildInputs =
       [pkg-config]
-      ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [python3]
+      ++ lib.optionals (!buildNoDefaultFeatures && stdenv.isLinux) [python3]
       ++ lib.optionals stdenv.isDarwin [rustPlatform.bindgenHook];
 
     buildInputs =
@@ -44,13 +45,8 @@ in
         Libsystem
         Security
       ]
-      ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [xorg.libX11]
-      ++ lib.optionals (withDefaultFeatures && stdenv.isDarwin) [AppKit nghttp2 libgit2];
-
-    buildNoDefaultFeatures = !withDefaultFeatures;
-    buildFeatures = additionalFeatures [];
-
-    inherit doCheck;
+      ++ lib.optionals (!buildNoDefaultFeatures && stdenv.isLinux) [xorg.libX11]
+      ++ lib.optionals (!buildNoDefaultFeatures && stdenv.isDarwin) [AppKit nghttp2 libgit2];
 
     checkPhase = ''
       runHook preCheck
@@ -66,6 +62,8 @@ in
       };
       updateScript = nix-update-script {};
     };
+
+    buildFeatures = buildFeatures [];
 
     meta = with lib; {
       description = "A modern shell written in Rust";

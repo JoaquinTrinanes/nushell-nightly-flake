@@ -1,18 +1,13 @@
 {
   description = "Nushell nightly flake";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-
-    # nushell-src.url = "github:nushell/nushell";
-    # nushell-src.flake = false;
-  };
+  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
   outputs = {
     self,
     nixpkgs,
   }: let
-    supportedSystems = ["x86_64-linux"];
+    supportedSystems = ["x86_64-linux" "x86_64-darwin"];
     forEachSystem = nixpkgs.lib.genAttrs supportedSystems;
   in {
     packages = forEachSystem (system: let
@@ -23,7 +18,7 @@
       };
     in {
       nushellFull = pkgs.callPackage ./nushell.nix ({
-          additionalFeatures = p: (p ++ ["extra" "dataframe"]);
+          buildFeatures = p: (p ++ ["extra" "dataframe"]);
         }
         // commonArgs);
       nushell = pkgs.callPackage ./nushell.nix commonArgs;
