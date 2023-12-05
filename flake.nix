@@ -2,10 +2,12 @@
   description = "Nushell nightly flake";
 
   inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+  inputs.flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
 
   outputs = {
     self,
     nixpkgs,
+    ...
   }: let
     supportedSystems = ["x86_64-linux" "x86_64-darwin"];
     forEachSystem = nixpkgs.lib.genAttrs supportedSystems;
