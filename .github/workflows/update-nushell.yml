@@ -1,0 +1,16 @@
+name: "Update inputs"
+on:
+  schedule:
+    # every hour
+    - cron: "0 * * * *"
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v20
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+      - uses: DeterminateSystems/magic-nix-cache-action@v2
+      - run: nix run nixpkgs#nvfetcher -- --commit-changes
+      - run: git push
