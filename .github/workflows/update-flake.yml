@@ -1,4 +1,4 @@
-name: "Update inputs"
+name: "Update flake"
 on:
   schedule:
     # daily at 00:00
