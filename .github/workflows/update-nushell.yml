@@ -1,5 +1,6 @@
 name: "Update inputs"
 on:
+  workflow_dispatch:
   schedule:
     # every hour
     - cron: "0 * * * *"
