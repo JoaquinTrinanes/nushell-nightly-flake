@@ -16,6 +16,5 @@ jobs:
       - run: |
           git config user.name 'nvfetcher updater'
           git config user.email 'noreply@github.com'
-          rm -rf _sources
           nix run nixpkgs#nvfetcher -- --commit-changes
           git push
