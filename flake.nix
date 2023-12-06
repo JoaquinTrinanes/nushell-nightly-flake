@@ -16,7 +16,8 @@
       pkgs = nixpkgs.legacyPackages.${system};
       commonArgs = {
         doCheck = false;
-        inherit (pkgs.darwin.apple_sdk.frameworks) Libsystem Security AppKit;
+        inherit (pkgs.darwin) Libsystem Security;
+        inherit (pkgs.darwin.apple_sdk.frameworks) AppKit;
       };
     in {
       nushellFull = pkgs.callPackage ./nushell.nix ({
