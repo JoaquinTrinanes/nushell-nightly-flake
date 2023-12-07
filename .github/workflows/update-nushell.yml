@@ -15,8 +15,11 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-unstable
       - uses: DeterminateSystems/magic-nix-cache-action@v2
-      - run: |
+      - name: Setup git
+        run: |
           git config user.name 'nvfetcher updater'
           git config user.email 'noreply@github.com'
-          nix run nixpkgs#nvfetcher -- --commit-changes
-          git push
+      - name: Update nushell
+        run: nix run nixpkgs#nvfetcher -- --commit-changes
+      - name: Push changes
+        run: git push
