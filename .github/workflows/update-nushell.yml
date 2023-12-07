@@ -1,4 +1,4 @@
-name: "Update inputs"
+name: "Update nushell"
 on:
   workflow_dispatch:
   schedule:
@@ -8,7 +8,10 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          token: ${{ secrets.PAT }}
       - uses: cachix/install-nix-action@v20
         with:
           nix_path: nixpkgs=channel:nixos-unstable
