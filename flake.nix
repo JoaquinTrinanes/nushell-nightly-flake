@@ -10,10 +10,11 @@
     ...
   }: let
     supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
-    forEachSystem = nixpkgs.lib.genAttrs supportedSystems;
+    forEachSystem = f:
+      (nixpkgs.lib.genAttrs supportedSystems)
+      (system: f nixpkgs.legacyPackages.${system});
   in {
-    packages = forEachSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
+    packages = forEachSystem (pkgs: let
       commonArgs = {
         doCheck = false;
         inherit (pkgs.darwin.apple_sdk_11_0) Libsystem;
@@ -25,7 +26,7 @@
         }
         // commonArgs);
       nushell = pkgs.callPackage ./nushell.nix commonArgs;
-      default = self.packages.${system}.nushell;
+      default = self.packages.${pkgs.stdenv.hostPlatform.system}.nushell;
     });
 
     overlays.default = final: prev: let
