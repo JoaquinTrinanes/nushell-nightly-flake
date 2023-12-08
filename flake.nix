@@ -14,6 +14,7 @@
       (nixpkgs.lib.genAttrs supportedSystems)
       (system: f nixpkgs.legacyPackages.${system});
   in {
+    formatter = forEachSystem (pkgs: pkgs.alejandra);
     packages = forEachSystem (pkgs: let
       commonArgs = {
         doCheck = false;
