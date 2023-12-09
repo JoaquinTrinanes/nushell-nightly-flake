@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "_sources"
+      - "_sources/**"
 jobs:
   build:
     strategy:
