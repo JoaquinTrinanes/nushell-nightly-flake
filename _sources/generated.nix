@@ -3,16 +3,16 @@
 {
   nushell = {
     pname = "nushell";
-    version = "c59d6d31bcb8828b56769de6dc9e13b103942ba8";
+    version = "188aca8fe68f518561020770eee5fd07c06a2c87";
     src = fetchFromGitHub {
       owner = "nushell";
       repo = "nushell";
-      rev = "c59d6d31bcb8828b56769de6dc9e13b103942ba8";
+      rev = "188aca8fe68f518561020770eee5fd07c06a2c87";
       fetchSubmodules = false;
-      sha256 = "sha256-2G212Y93ICA0LUJ1l48HW2pDZv+XOrxf5cvZKly1X7k=";
+      sha256 = "sha256-6XmrbNvP9qUt/gdyQgyktGz8kvfV3TW/qxPyOr6i0i0=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./nushell-c59d6d31bcb8828b56769de6dc9e13b103942ba8/Cargo.lock;
+      lockFile = ./nushell-188aca8fe68f518561020770eee5fd07c06a2c87/Cargo.lock;
       outputHashes = {
         "reedline-0.28.0" = "sha256-jAGxyRU/c5lbjXt8xjJvyZ2gr51tNw7V8bofWuIw9wY=";
       };
