@@ -2,7 +2,7 @@
     "nushell": {
         "cargoLocks": {
             "Cargo.lock": [
-                "./nushell-f03d81b0c88c70f0844052c437c42e372fc2834a/Cargo.lock",
+                "./nushell-e43d893ea3828a5164a4f4b7535c5a1a9b5e7f13/Cargo.lock",
                 {
                     "reedline-0.28.0": "sha256-fyYWLbKd3ThmPSW72ovtVctMiIklpZiERQjlbvhSD9w="
                 }
@@ -20,10 +20,10 @@
             "name": null,
             "owner": "nushell",
             "repo": "nushell",
-            "rev": "f03d81b0c88c70f0844052c437c42e372fc2834a",
-            "sha256": "sha256-ZscJfZgJPyBlls8lhaHkfvUuMXBpPtfyLgM+Q4qOAR8=",
+            "rev": "e43d893ea3828a5164a4f4b7535c5a1a9b5e7f13",
+            "sha256": "sha256-Ig0NvmF+wmyiFYnKkFpKvHhyRyRWaVU4nxRLb1GC3Zo=",
             "type": "github"
         },
-        "version": "f03d81b0c88c70f0844052c437c42e372fc2834a"
+        "version": "e43d893ea3828a5164a4f4b7535c5a1a9b5e7f13"
     }
 }
