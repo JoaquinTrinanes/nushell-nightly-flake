@@ -1,0 +1,17 @@
+{
+  "pins": {
+    "nushell": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nushell",
+        "repo": "nushell"
+      },
+      "branch": "main",
+      "revision": "903afda6d946960682dc5234724a09d2bfed288b",
+      "url": "https://github.com/nushell/nushell/archive/903afda6d946960682dc5234724a09d2bfed288b.tar.gz",
+      "hash": "0hap8cq0kjrrqrgz9kpvwamkxlyha0na0iqm21jkq91a0x70hnbk"
+    }
+  },
+  "version": 3
+}

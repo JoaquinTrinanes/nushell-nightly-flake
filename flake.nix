@@ -14,6 +14,11 @@
       (nixpkgs.lib.genAttrs supportedSystems)
       (system: f nixpkgs.legacyPackages.${system});
   in {
+    devShells = forEachSystem (pkgs: {
+      default = pkgs.mkShell {
+        packages = builtins.attrValues {inherit (pkgs) npins;};
+      };
+    });
     formatter = forEachSystem (pkgs: pkgs.alejandra);
     packages = forEachSystem (pkgs: let
       commonArgs = {
@@ -31,7 +36,7 @@
     });
 
     overlays.default = final: prev: let
-      system = prev.stdenv.hostPlatform.system;
+      inherit (prev.stdenv.hostPlatform) system;
     in {
       inherit (self.packages.${system}) nushell nushellFull;
     };
