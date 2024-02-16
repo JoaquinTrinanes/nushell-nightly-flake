@@ -59,13 +59,24 @@
             program = pkgs.lib.getExe app;
           };
         in {
-          update = mkApp (pkgs.writeShellApplication {
-            name = "update";
-            runtimeInputs = builtins.attrValues {inherit (pkgs) npins jq;};
-            text = ''
-              npins update
-            '';
-          });
+          update = let
+            sources = import ./npins;
+            inherit (sources) nushell;
+          in
+            mkApp (pkgs.writeShellApplication {
+              name = "update";
+              runtimeInputs = builtins.attrValues {inherit (pkgs) npins jq git;};
+              text = ''
+                BEFORE="${nushell.revision}"
+                npins update
+                AFTER="$(jq -j .pins.nushell.revision ./npins/sources.json)"
+
+
+                if [ "$BEFORE" != "$AFTER" ]; then
+                    git commit -a -m "Nushell: $BEFORE -> $AFTER"
+                fi
+              '';
+            });
         };
       };
     };
