@@ -3,7 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
     flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
   };
 
   nixConfig = {
@@ -15,56 +19,54 @@
     ];
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    ...
-  }: let
-    supportedSystems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
-    forEachSystem = f:
-      (nixpkgs.lib.genAttrs supportedSystems)
-      (system: f nixpkgs.legacyPackages.${system});
-  in {
-    devShells = forEachSystem (pkgs: {
-      default = pkgs.mkShell {
-        packages = builtins.attrValues {inherit (pkgs) npins;};
-      };
-    });
-    formatter = forEachSystem (pkgs: pkgs.alejandra);
-    packages = forEachSystem (pkgs: let
-      commonArgs = {
-        doCheck = false;
-        inherit (pkgs.darwin.apple_sdk_11_0) Libsystem;
-        inherit (pkgs.darwin.apple_sdk_11_0.frameworks) AppKit Security;
-      };
-    in {
-      nushellFull = pkgs.callPackage ./nushell.nix ({
-          additionalFeatures = p: (p ++ ["extra" "dataframe"]);
-        }
-        // commonArgs);
-      nushell = pkgs.callPackage ./nushell.nix commonArgs;
-      default = self.packages.${pkgs.stdenv.hostPlatform.system}.nushell;
-    });
+  outputs = inputs:
+    inputs.flake-parts.lib.mkFlake {inherit inputs;} {
+      systems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
 
-    apps = forEachSystem (pkgs: let
-      mkApp = app: {
-        type = "app";
-        program = pkgs.lib.getExe app;
-      };
-    in {
-      update = mkApp (pkgs.writeShellApplication {
-        name = "update";
-        runtimeInputs = builtins.attrValues {inherit (pkgs) npins jq;};
-        text = ''
-          npins update
-        '';
-      });
-    });
+      imports = [inputs.flake-parts.flakeModules.easyOverlay];
 
-    overlays.default = final: prev: let
-      inherit (prev.stdenv.hostPlatform) system;
-    in {
-      inherit (self.packages.${system}) nushell nushellFull;
+      perSystem = {
+        pkgs,
+        lib,
+        self',
+        ...
+      }: {
+        overlayAttrs = lib.genAttrs ["nushell" "nushellFull"] (v: self'.packages.${v});
+
+        formatter = pkgs.alejandra;
+
+        devShells.default = pkgs.mkShell {
+          packages = builtins.attrValues {inherit (pkgs) npins;};
+        };
+        packages = let
+          commonArgs = {
+            doCheck = false;
+            inherit (pkgs.darwin.apple_sdk_11_0) Libsystem;
+            inherit (pkgs.darwin.apple_sdk_11_0.frameworks) AppKit Security;
+          };
+        in {
+          nushellFull = pkgs.callPackage ./nushell.nix ({
+              additionalFeatures = p: (p ++ ["extra" "dataframe"]);
+            }
+            // commonArgs);
+          nushell = pkgs.callPackage ./nushell.nix commonArgs;
+          default = self'.packages.nushell;
+        };
+
+        apps = let
+          mkApp = app: {
+            type = "app";
+            program = pkgs.lib.getExe app;
+          };
+        in {
+          update = mkApp (pkgs.writeShellApplication {
+            name = "update";
+            runtimeInputs = builtins.attrValues {inherit (pkgs) npins jq;};
+            text = ''
+              npins update
+            '';
+          });
+        };
+      };
     };
-  };
 }
