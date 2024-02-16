@@ -1,7 +1,6 @@
 {
   stdenv,
   lib,
-  fetchFromGitHub,
   rustPlatform,
   openssl,
   zlib,
@@ -18,22 +17,23 @@
   withDefaultFeatures ? true,
   additionalFeatures ? (defaultFeatures: defaultFeatures),
   testers,
-  nushell,
   nix-update-script,
-  fetchgit,
-  fetchurl,
-  dockerTools,
 }: let
-  source = (import ./_sources/generated.nix {inherit fetchgit fetchurl fetchFromGitHub dockerTools;}).nushell;
+  sources = import ./npins;
+  inherit (sources) nushell;
 in
   rustPlatform.buildRustPackage {
+    name = "nushell";
+    version = nushell.revision;
+    src = nushell;
+
     inherit doCheck;
-    inherit (source) pname version src;
 
     buildNoDefaultFeatures = !withDefaultFeatures;
 
     cargoLock = {
-      inherit (source.cargoLock."Cargo.lock") lockFile outputHashes;
+      lockFile = "${nushell}/Cargo.lock";
+      allowBuiltinFetchGit = true;
     };
     nativeBuildInputs =
       [pkg-config]
