@@ -5,8 +5,9 @@ on:
     branches:
       - main
     paths:
-      - "_sources/**"
+      - "npins/**"
       - "flake.*"
+      - "nushell.nix"
 jobs:
   build:
     strategy:
