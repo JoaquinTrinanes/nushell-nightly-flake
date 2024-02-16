@@ -46,6 +46,21 @@
       default = self.packages.${pkgs.stdenv.hostPlatform.system}.nushell;
     });
 
+    apps = forEachSystem (pkgs: let
+      mkApp = app: {
+        type = "app";
+        program = pkgs.lib.getExe app;
+      };
+    in {
+      update = mkApp (pkgs.writeShellApplication {
+        name = "update";
+        runtimeInputs = builtins.attrValues {inherit (pkgs) npins jq;};
+        text = ''
+          npins update
+        '';
+      });
+    });
+
     overlays.default = final: prev: let
       inherit (prev.stdenv.hostPlatform) system;
     in {
