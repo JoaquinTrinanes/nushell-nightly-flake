@@ -1,8 +1,19 @@
 {
   description = "Nushell nightly flake";
 
-  inputs.nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-  inputs.flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
+  };
+
+  nixConfig = {
+    extra-substituters = [
+      "https://nushell-nightly.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "nushell-nightly.cachix.org-1:nLwXJzwwVmQ+fLKD6aH6rWDoTC73ry1ahMX9lU87nrc="
+    ];
+  };
 
   outputs = {
     self,
