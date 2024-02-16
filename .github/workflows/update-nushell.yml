@@ -17,9 +17,10 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@v2
       - name: Setup git
         run: |
-          git config user.name 'nvfetcher updater'
+          git config user.name 'npins updater'
           git config user.email 'noreply@github.com'
       - name: Update nushell
-        run: nix run nixpkgs#nvfetcher -- --commit-changes
+        run: |
+          nix run .#update
       - name: Push changes
         run: git push
