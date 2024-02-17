@@ -60,7 +60,7 @@
           }
           // (lib.genAttrs pluginPackageNames (
             package:
-              nushell.overrideAttrs {
+              nushell.override {
                 inherit package;
                 pname = package;
               }

@@ -17,6 +17,7 @@
   withDefaultFeatures ? true,
   additionalFeatures ? (defaultFeatures: defaultFeatures),
   package ? "nu",
+  pname ? "nushell",
   testers,
   nix-update-script,
 }: let
@@ -24,11 +25,9 @@
   inherit (sources) nushell;
 in
   rustPlatform.buildRustPackage {
-    pname = "nushell";
+    inherit pname doCheck;
     version = nushell.revision;
     src = nushell;
-
-    inherit doCheck;
 
     buildNoDefaultFeatures = !withDefaultFeatures;
 
@@ -75,9 +74,6 @@ in
       homepage = "https://www.nushell.sh/";
       license = licenses.mit;
       maintainers = [];
-      mainProgram =
-        if lib.hasPrefix "nu_plugin_" package
-        then package
-        else "nu";
+      mainProgram = package;
     };
   }
