@@ -44,7 +44,7 @@
           packages = builtins.attrValues {inherit (pkgs) npins;};
         };
         packages = let
-          plugins = ["custom_values" "formats" "gstat" "inc" "python" "query"];
+          plugins = ["formats" "gstat" "inc" "query"];
           pluginPackageNames = map (p: "nu_plugin_${p}") plugins;
           nushell = pkgs.callPackage ./nushell.nix {
             doCheck = false;

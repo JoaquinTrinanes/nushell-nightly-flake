@@ -16,11 +16,9 @@ jobs:
           [
             nushell,
             nushellFull,
-            nu_plugin_custom_values,
             nu_plugin_formats,
             nu_plugin_gstat,
             nu_plugin_inc,
-            nu_plugin_python,
             nu_plugin_query,
           ]
         os: [linux, darwin]

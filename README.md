@@ -7,11 +7,9 @@
 - It's own binary cache
 - Optional `dataframe` and `extra` features support (cached of course)
 - Official nushell plugins:
-  - nu_plugin_custom_values
   - nu_plugin_formats
   - nu_plugin_gstat
   - nu_plugin_inc
-  - nu_plugin_python
   - nu_plugin_query
 
 ## Getting started
