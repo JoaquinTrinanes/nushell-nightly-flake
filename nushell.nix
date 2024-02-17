@@ -16,6 +16,7 @@
   doCheck ? true,
   withDefaultFeatures ? true,
   additionalFeatures ? (defaultFeatures: defaultFeatures),
+  package ? "nu",
   testers,
   nix-update-script,
 }: let
@@ -64,6 +65,8 @@ in
       };
       updateScript = nix-update-script {};
     };
+
+    cargoBuildFlags = ["--package ${package}"];
 
     buildFeatures = additionalFeatures [];
 
