@@ -35,7 +35,6 @@
       perSystem = {
         pkgs,
         lib,
-        self',
         ...
       }: {
         formatter = pkgs.alejandra;
@@ -57,10 +56,14 @@
             nushellFull = nushell.override {
               additionalFeatures = default: (default ++ ["extra" "dataframe"]);
             };
-            default = self'.packages.nushell;
+            default = nushell;
           }
           // (lib.genAttrs pluginPackageNames (
-            package: nushell.override {inherit package;}
+            package:
+              nushell.overrideAttrs {
+                inherit package;
+                pname = package;
+              }
           ));
 
         apps = let

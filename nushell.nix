@@ -24,7 +24,7 @@
   inherit (sources) nushell;
 in
   rustPlatform.buildRustPackage {
-    name = "nushell";
+    pname = "nushell";
     version = nushell.revision;
     src = nushell;
 
