@@ -19,10 +19,7 @@
     ];
   };
 
-  outputs = inputs: let
-    plugins = ["custom_values" "formats" "gstat" "inc" "python" "query"];
-    pluginPackageNames = map (p: "nu_plugin_${p}") plugins;
-  in
+  outputs = inputs:
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
 
@@ -32,7 +29,7 @@
         inherit (inputs.nixpkgs) lib;
       in {
         inherit (packages) nushell nushellFull;
-        nushellPlugins = let pluginPkgs = lib.filterAttrs (name: _: lib.elem name pluginPackageNames) packages; in lib.mapAttrs' (name: value: lib.nameValuePair (lib.removePrefix "nu_plugin_" name) value) pluginPkgs;
+        nushellPlugins = let pluginPkgs = lib.filterAttrs (name: _: lib.hasPrefix "nu_plugin_" name) packages; in lib.mapAttrs' (name: value: lib.nameValuePair (lib.removePrefix "nu_plugin_" name) value) pluginPkgs;
       };
 
       perSystem = {
@@ -52,16 +49,20 @@
             inherit (pkgs.darwin.apple_sdk_11_0) Libsystem;
             inherit (pkgs.darwin.apple_sdk_11_0.frameworks) AppKit Security;
           };
+          plugins = ["custom_values" "formats" "gstat" "inc" "python" "query"];
+          pluginPackageNames = map (p: "nu_plugin_${p}") plugins;
         in
           {
+            nushell = pkgs.callPackage ./nushell.nix commonArgs;
             nushellFull = pkgs.callPackage ./nushell.nix ({
                 additionalFeatures = p: (p ++ ["extra" "dataframe"]);
               }
               // commonArgs);
-            nushell = pkgs.callPackage ./nushell.nix commonArgs;
             default = self'.packages.nushell;
           }
-          // (lib.genAttrs pluginPackageNames (package: pkgs.callPackage ./nushell.nix commonArgs // {inherit package;}));
+          // (lib.genAttrs pluginPackageNames (
+            package: pkgs.callPackage ./nushell.nix (commonArgs // {inherit package;})
+          ));
 
         apps = let
           mkApp = app: {
