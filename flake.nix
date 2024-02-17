@@ -19,11 +19,21 @@
     ];
   };
 
-  outputs = inputs:
+  outputs = inputs: let
+    plugins = ["custom_values" "formats" "gstat" "inc" "python" "query"];
+    pluginPackageNames = map (p: "nu_plugin_${p}") plugins;
+  in
     inputs.flake-parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
 
-      imports = [inputs.flake-parts.flakeModules.easyOverlay];
+      flake.overlays.default = final: prev: let
+        inherit (final.stdenv.hostPlatform) system;
+        packages = inputs.self.packages.${system};
+        inherit (inputs.nixpkgs) lib;
+      in {
+        inherit (packages) nushell nushellFull;
+        nushellPlugins = let pluginPkgs = lib.filterAttrs (name: _: lib.elem name pluginPackageNames) packages; in lib.mapAttrs' (name: value: lib.nameValuePair (lib.removePrefix "nu_plugin_" name) value) pluginPkgs;
+      };
 
       perSystem = {
         pkgs,
@@ -31,8 +41,6 @@
         self',
         ...
       }: {
-        overlayAttrs = lib.genAttrs ["nushell" "nushellFull"] (v: self'.packages.${v});
-
         formatter = pkgs.alejandra;
 
         devShells.default = pkgs.mkShell {
@@ -44,14 +52,16 @@
             inherit (pkgs.darwin.apple_sdk_11_0) Libsystem;
             inherit (pkgs.darwin.apple_sdk_11_0.frameworks) AppKit Security;
           };
-        in {
-          nushellFull = pkgs.callPackage ./nushell.nix ({
-              additionalFeatures = p: (p ++ ["extra" "dataframe"]);
-            }
-            // commonArgs);
-          nushell = pkgs.callPackage ./nushell.nix commonArgs;
-          default = self'.packages.nushell;
-        };
+        in
+          {
+            nushellFull = pkgs.callPackage ./nushell.nix ({
+                additionalFeatures = p: (p ++ ["extra" "dataframe"]);
+              }
+              // commonArgs);
+            nushell = pkgs.callPackage ./nushell.nix commonArgs;
+            default = self'.packages.nushell;
+          }
+          // (lib.genAttrs pluginPackageNames (package: pkgs.callPackage ./nushell.nix commonArgs // {inherit package;}));
 
         apps = let
           mkApp = app: {
