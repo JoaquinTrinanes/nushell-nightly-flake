@@ -6,6 +6,13 @@
 - Hourly builds to live on the bleeding edge
 - It's own binary cache
 - Optional `dataframe` and `extra` features support (cached of course)
+- Official nushell plugins:
+  - nu_plugin_custom_values
+  - nu_plugin_formats
+  - nu_plugin_gstat
+  - nu_plugin_inc
+  - nu_plugin_python
+  - nu_plugin_query
 
 ## Getting started
 
@@ -37,14 +44,14 @@ Alternatively, you can enable the cache manually.
 
 ```nix
 environment.systemPackages = [
-    # You can access nushell, nushellFull and default (alias to nushell)
+    # You can access nushell, nushellFull, nu_plugin_* and default (alias to nushell)
     inputs.nushell-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default;
 ];
 ```
 
 #### Using the overlay
 
-The flake exports an overlay that takes care of overriding the `nushell` and `nushellFull` (`extra` and `dataframe` features enabled) packages.
+The flake exports an overlay that takes care of overriding the `nushell`, `nushellPlugins`, `nushellFull` (`extra` and `dataframe` features enabled) packages.
 
 ```nix
 import nixpkgs {
