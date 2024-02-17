@@ -44,24 +44,23 @@
           packages = builtins.attrValues {inherit (pkgs) npins;};
         };
         packages = let
-          commonArgs = {
+          plugins = ["custom_values" "formats" "gstat" "inc" "python" "query"];
+          pluginPackageNames = map (p: "nu_plugin_${p}") plugins;
+          nushell = pkgs.callPackage ./nushell.nix {
             doCheck = false;
             inherit (pkgs.darwin.apple_sdk_11_0) Libsystem;
             inherit (pkgs.darwin.apple_sdk_11_0.frameworks) AppKit Security;
           };
-          plugins = ["custom_values" "formats" "gstat" "inc" "python" "query"];
-          pluginPackageNames = map (p: "nu_plugin_${p}") plugins;
         in
           {
-            nushell = pkgs.callPackage ./nushell.nix commonArgs;
-            nushellFull = pkgs.callPackage ./nushell.nix ({
-                additionalFeatures = p: (p ++ ["extra" "dataframe"]);
-              }
-              // commonArgs);
+            inherit nushell;
+            nushellFull = nushell.override {
+              additionalFeatures = default: (default ++ ["extra" "dataframe"]);
+            };
             default = self'.packages.nushell;
           }
           // (lib.genAttrs pluginPackageNames (
-            package: pkgs.callPackage ./nushell.nix (commonArgs // {inherit package;})
+            package: nushell.override {inherit package;}
           ));
 
         apps = let
