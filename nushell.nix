@@ -75,6 +75,9 @@ in
       homepage = "https://www.nushell.sh/";
       license = licenses.mit;
       maintainers = [];
-      mainProgram = "nu";
+      mainProgram =
+        if lib.hasPrefix "nu_plugin_" package
+        then package
+        else "nu";
     };
   }
