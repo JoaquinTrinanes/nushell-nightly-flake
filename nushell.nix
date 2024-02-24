@@ -31,6 +31,16 @@ in
 
     buildNoDefaultFeatures = !withDefaultFeatures;
 
+    # Our source doesn't contain a .git folder from which to extract the hash,
+    # so the build script is patched to fallback to our own hash instead of an empty string.
+    # This is only relevant for showing the current commit when running the `version` command
+    patchPhase = ''
+      runHook prePatch
+
+      substituteInPlace "crates/nu-cmd-lang/build.rs" --replace-fail "get_git_hash().unwrap_or_default();" "get_git_hash().unwrap_or(\"${nushell.revision}\".into());"
+      runHook postPatch
+    '';
+
     cargoLock = {
       lockFile = "${nushell}/Cargo.lock";
       allowBuiltinFetchGit = true;
