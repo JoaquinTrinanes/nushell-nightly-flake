@@ -5,7 +5,7 @@
 - Handy overlay
 - Hourly builds to live on the bleeding edge
 - It's own binary cache
-- Optional `dataframe` and `extra` features support (cached of course)
+- Optional `dataframe` feature support (cached of course)
 - Official nushell plugins:
   - nu_plugin_formats
   - nu_plugin_gstat
@@ -49,7 +49,7 @@ environment.systemPackages = [
 
 #### Using the overlay
 
-The flake exports an overlay that takes care of overriding the `nushell`, `nushellPlugins`, `nushellFull` (`extra` and `dataframe` features enabled) packages.
+The flake exports an overlay that takes care of overriding the `nushell`, `nushellPlugins`, `nushellFull` (and `dataframe` feature enabled) packages.
 
 ```nix
 import nixpkgs {

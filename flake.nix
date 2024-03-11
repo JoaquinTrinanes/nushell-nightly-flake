@@ -54,7 +54,7 @@
           {
             inherit nushell;
             nushellFull = nushell.override {
-              additionalFeatures = default: (default ++ ["extra" "dataframe"]);
+              additionalFeatures = default: (default ++ ["dataframe"]);
             };
             default = nushell;
           }
