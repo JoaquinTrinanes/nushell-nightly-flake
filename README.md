@@ -34,7 +34,7 @@ Alternatively, you can enable the cache manually.
   trusted-public-keys = nushell-nightly.cachix.org-1:nLwXJzwwVmQ+fLKD6aH6rWDoTC73ry1ahMX9lU87nrc=
   ```
 
-  Note that if you enable the cache in your user config it won't take affect unless the user is in the `trusted-users` list.
+  Note that if you enable the cache in your user config it won't take effect unless the user is in the `trusted-users` list.
 
 ### Using flakes
 
