@@ -8,9 +8,9 @@
         "repo": "nushell"
       },
       "branch": "main",
-      "revision": "1c5bd21ebcdcb86b640af41c31d9d049d7493411",
-      "url": "https://github.com/nushell/nushell/archive/1c5bd21ebcdcb86b640af41c31d9d049d7493411.tar.gz",
-      "hash": "1v2hz46x6qy42kylkgn76vqziaqx378af7y4cc60a6k7rnnwbj4b"
+      "revision": "db1dccc762daf69b9c294dd655aa82cf2f59e4d8",
+      "url": "https://github.com/nushell/nushell/archive/db1dccc762daf69b9c294dd655aa82cf2f59e4d8.tar.gz",
+      "hash": "0ip2bnz23xdh70gl0ka5dacyv406z641j8wki4i4bvkk27m1nc58"
     }
   },
   "version": 3
