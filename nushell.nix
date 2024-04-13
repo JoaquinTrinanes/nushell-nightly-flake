@@ -22,8 +22,7 @@
   nix-update-script,
 }:
 let
-  sources = import ./npins;
-  inherit (sources) nushell;
+  inherit (import ./npins) nushell;
 in
 rustPlatform.buildRustPackage {
   inherit pname doCheck;

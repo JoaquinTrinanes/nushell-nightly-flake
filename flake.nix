@@ -8,6 +8,8 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
     flake-parts.inputs.nixpkgs-lib.follows = "nixpkgs";
+
+    rust-overlay.url = "github:oxalica/rust-overlay";
   };
 
   nixConfig = {
@@ -46,8 +48,22 @@
         };
 
       perSystem =
-        { pkgs, lib, ... }:
         {
+          pkgs,
+          system,
+          lib,
+          inputs',
+          ...
+        }:
+        let
+          inherit (import ./npins) nushell;
+          toolchain = pkgs.rust-bin.fromRustupToolchainFile "${nushell}/rust-toolchain.toml";
+        in
+        {
+          _module.args.pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [ inputs.rust-overlay.overlays.default ];
+          };
           formatter = pkgs.nixfmt-rfc-style;
 
           devShells.default = pkgs.mkShell { packages = builtins.attrValues { inherit (pkgs) npins; }; };
@@ -64,6 +80,10 @@
                 doCheck = false;
                 inherit (pkgs.darwin.apple_sdk_11_0) Libsystem;
                 inherit (pkgs.darwin.apple_sdk_11_0.frameworks) AppKit Security;
+                rustPlatform = pkgs.makeRustPlatform {
+                  cargo = toolchain;
+                  rustc = toolchain;
+                };
               };
             in
             {
