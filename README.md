@@ -35,7 +35,11 @@ Alternatively, you can enable the cache manually.
   trusted-public-keys = nushell-nightly.cachix.org-1:nLwXJzwwVmQ+fLKD6aH6rWDoTC73ry1ahMX9lU87nrc=
   ```
 
-  Note that if you enable the cache in your user config it won't take effect unless the user is in the `trusted-users` list.
+> [!NOTE]
+> If you enable the cache in your user config it won't take effect unless the user is in the `trusted-users` list.
+
+> [!WARNING]  
+> The `dataframe` feature is deprecated and will be removed in the next stable release. Given that's the only difference between `nushell` and `nushellFull`, it is recommended to avoid using `nushellFull` and use `nu_plugin_polars` instead.
 
 ### Using flakes
 
@@ -51,9 +55,6 @@ environment.systemPackages = [
 #### Using the overlay
 
 The flake exports an overlay that takes care of overriding the `nushell`, `nushellPlugins`, `nushellFull` (`dataframe` feature enabled) packages.
-
-> [!WARNING]  
-> The `dataframe` feature is deprecated and will be removed in the next stable release. Given that's the only difference between `nushell` and `nushellFull`, it is recommended to avoid using `nushellFull` and use `nu_plugin_polars` instead.
 
 ```nix
 import nixpkgs {
