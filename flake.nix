@@ -74,6 +74,7 @@
                 "gstat"
                 "inc"
                 "query"
+                "polars"
               ];
               pluginPackageNames = map (p: "nu_plugin_${p}") plugins;
               nushell = pkgs.callPackage ./nushell.nix {

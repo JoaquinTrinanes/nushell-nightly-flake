@@ -11,6 +11,7 @@
   - nu_plugin_gstat
   - nu_plugin_inc
   - nu_plugin_query
+  - nu_plugin_polars
 
 ## Getting started
 
