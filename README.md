@@ -50,7 +50,10 @@ environment.systemPackages = [
 
 #### Using the overlay
 
-The flake exports an overlay that takes care of overriding the `nushell`, `nushellPlugins`, `nushellFull` (and `dataframe` feature enabled) packages.
+The flake exports an overlay that takes care of overriding the `nushell`, `nushellPlugins`, `nushellFull` (`dataframe` feature enabled) packages.
+
+> [!WARNING]  
+> The `dataframe` feature is deprecated and will be removed in the next stable release. Given that's the only difference between `nushell` and `nushellFull`, it is recommended to avoid using `nushellFull` and use `nu_plugin_polars` instead.
 
 ```nix
 import nixpkgs {
@@ -64,7 +67,5 @@ import nixpkgs {
 ```nix
 environment.systemPackages = [
     (import (fetchTarball "https://github.com/JoaquinTrinanes/nushell-nightly-flake/archive/main.tar.gz")).default
-    # or, for nushellFull
-    (import (fetchTarball "https://github.com/JoaquinTrinanes/nushell-nightly-flake/archive/main.tar.gz")).packages.${pkgs.stdenv.hostPlatform.system}.nushellFull
 ];
 ```
