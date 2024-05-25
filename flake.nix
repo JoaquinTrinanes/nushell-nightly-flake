@@ -52,7 +52,6 @@
           pkgs,
           system,
           lib,
-          inputs',
           ...
         }:
         let
@@ -89,10 +88,6 @@
             in
             {
               inherit nushell;
-              nushellFull =
-                lib.warn
-                  "The dataframe feature is deprecated and will be deleted in Nushell 0.94. Use the default Nushell package with the polars plugin instead."
-                  (nushell.override { additionalFeatures = default: (default ++ [ "dataframe" ]); });
               default = nushell;
             }
             // (lib.genAttrs pluginPackageNames (

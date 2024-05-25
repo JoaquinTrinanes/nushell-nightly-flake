@@ -5,7 +5,6 @@
 - Handy overlay
 - Hourly builds to live on the bleeding edge
 - It's own binary cache
-- Optional `dataframe` feature support (cached of course)
 - Official nushell plugins:
   - nu_plugin_formats
   - nu_plugin_gstat
@@ -38,23 +37,20 @@ Alternatively, you can enable the cache manually.
 > [!NOTE]
 > If you enable the cache in your user config it won't take effect unless the user is in the `trusted-users` list.
 
-> [!WARNING]  
-> The `dataframe` feature is deprecated and will be removed in the next stable release. Given that's the only difference between `nushell` and `nushellFull`, it is recommended to avoid using `nushellFull` and use `nu_plugin_polars` instead.
-
 ### Using flakes
 
 #### Using the packages
 
 ```nix
 environment.systemPackages = [
-    # You can access nushell, nushellFull, nu_plugin_* and default (alias to nushell)
+    # You can access nushell, nu_plugin_* and default (alias to nushell)
     inputs.nushell-nightly.packages.${pkgs.stdenv.hostPlatform.system}.default;
 ];
 ```
 
 #### Using the overlay
 
-The flake exports an overlay that takes care of overriding the `nushell`, `nushellPlugins`, `nushellFull` (`dataframe` feature enabled) packages.
+The flake exports an overlay that takes care of overriding the `nushell` and `nushellPlugins` packages.
 
 ```nix
 import nixpkgs {
