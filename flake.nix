@@ -37,7 +37,7 @@
           inherit (inputs.nixpkgs) lib;
         in
         {
-          inherit (packages) nushell nushellFull;
+          inherit (packages) nushell;
           nushellPlugins =
             let
               pluginPkgs = lib.filterAttrs (name: _: lib.hasPrefix "nu_plugin_" name) packages;
