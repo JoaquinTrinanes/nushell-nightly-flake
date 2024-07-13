@@ -35,11 +35,10 @@ jobs:
         uses: docker/setup-qemu-action@v3
         with:
           platforms: arm64
-      # - run: sudo apt-get install -y qemu-user-static
       - uses: cachix/install-nix-action@v25
-        # with:
-        #   extra_nix_config: |
-        #     system = ${{ matrix.arch }}-${{ matrix.os }}
+        with:
+          extra_nix_config: |
+            accept-flake-config = true
       - uses: cachix/cachix-action@v14
         with:
           name: nushell-nightly
