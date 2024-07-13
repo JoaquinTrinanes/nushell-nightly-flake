@@ -16,9 +16,6 @@
   doCheck ? true,
   withDefaultFeatures ? true,
   additionalFeatures ? (defaultFeatures: defaultFeatures),
-  curl,
-  package ? "nu",
-  pname ? "nushell",
   testers,
   nix-update-script,
 }:
@@ -26,7 +23,8 @@ let
   inherit (import ./npins) nushell;
 in
 rustPlatform.buildRustPackage {
-  inherit pname doCheck;
+  pname = "nushell";
+  inherit doCheck;
   version = nushell.revision;
   src = nushell;
 
@@ -57,7 +55,6 @@ rustPlatform.buildRustPackage {
       zstd
     ]
     ++ lib.optionals stdenv.isDarwin [
-      curl
       Libsystem
       Security
       zlib
@@ -82,8 +79,6 @@ rustPlatform.buildRustPackage {
     updateScript = nix-update-script { };
   };
 
-  cargoBuildFlags = [ "--package ${package}" ];
-
   buildFeatures = additionalFeatures [ ];
 
   meta = with lib; {
@@ -91,6 +86,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://www.nushell.sh/";
     license = licenses.mit;
     maintainers = [ ];
-    mainProgram = package;
+    mainProgram = "nu";
   };
 }
