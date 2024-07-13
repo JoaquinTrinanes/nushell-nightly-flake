@@ -31,7 +31,7 @@
       ];
 
       flake.overlays.default =
-        final: prev:
+        final: _prev:
         let
           inherit (final.stdenv.hostPlatform) system;
           packages = inputs.self.packages.${system};
@@ -86,18 +86,28 @@
                   rustc = toolchain;
                 };
               };
+              mkPlugin =
+                name:
+                nushell.overrideAttrs (
+                  _final: _prev: {
+                    pname = name;
+                    meta.mainProgram = name;
+                    cargoBuildFlags = [ "--package ${name}" ];
+                  }
+                );
             in
             {
               inherit nushell;
               default = nushell;
             }
-            // (lib.genAttrs pluginPackageNames (
-              package:
-              nushell.override {
-                inherit package;
-                pname = package;
-              }
-            ));
+            // (lib.genAttrs (lib.remove "nu_plugin_query" pluginPackageNames) mkPlugin)
+            // {
+              nu_plugin_query = (mkPlugin "nu_plugin_query").overrideAttrs (
+                _final: prev: {
+                  buildInputs = prev.buildInputs ++ lib.optionals pkgs.stdenv.isDarwin [ pkgs.curl ];
+                }
+              );
+            };
 
           apps =
             let
