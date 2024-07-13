@@ -16,6 +16,7 @@
   doCheck ? true,
   withDefaultFeatures ? true,
   additionalFeatures ? (defaultFeatures: defaultFeatures),
+  curl,
   package ? "nu",
   pname ? "nushell",
   testers,
@@ -56,9 +57,10 @@ rustPlatform.buildRustPackage {
       zstd
     ]
     ++ lib.optionals stdenv.isDarwin [
-      zlib
+      curl
       Libsystem
       Security
+      zlib
     ]
     ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ xorg.libX11 ]
     ++ lib.optionals (withDefaultFeatures && stdenv.isDarwin) [
