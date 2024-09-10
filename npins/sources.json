@@ -1,5 +1,20 @@
 {
   "pins": {
+    "flake-compat": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "edolstra",
+        "repo": "flake-compat"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "version": "v1.0.1",
+      "revision": "0f9255e01c2351cc7d116c072cb317785dd33b33",
+      "url": "https://api.github.com/repos/edolstra/flake-compat/tarball/v1.0.1",
+      "hash": "0m9grvfsbwmvgwaxvdzv6cmyvjnlww004gfxjvcl806ndqaxzy4j"
+    },
     "nushell": {
       "type": "Git",
       "repository": {

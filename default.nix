@@ -1,11 +1,9 @@
 (import (
   let
-    lock = builtins.fromJSON (builtins.readFile ./flake.lock);
+    pin = (builtins.fromJSON (builtins.readFile ./npins/sources.json)).pins.flake-compat;
   in
   fetchTarball {
-    url =
-      lock.nodes.flake-compat.locked.url
-        or "https://github.com/edolstra/flake-compat/archive/${lock.nodes.flake-compat.locked.rev}.tar.gz";
-    sha256 = lock.nodes.flake-compat.locked.narHash;
+    inherit (pin) url;
+    sha256 = pin.hash;
   }
 ) { src = ./.; }).defaultNix
