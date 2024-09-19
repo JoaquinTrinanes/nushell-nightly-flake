@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage {
   patchPhase = ''
     runHook prePatch
 
-    substituteInPlace "crates/nu-cmd-lang/build.rs" --replace-fail "get_git_hash().unwrap_or_default();" "get_git_hash().unwrap_or(\"${nushell.revision}\".into());"
+    substituteInPlace 'crates/nu-cmd-lang/build.rs' --replace-fail 'get_git_hash().unwrap_or_default();' 'get_git_hash().unwrap_or("${nushell.revision}".into());'
     runHook postPatch
   '';
 
