@@ -25,7 +25,11 @@ in
 rustPlatform.buildRustPackage {
   pname = "nushell";
   inherit doCheck;
-  version = nushell.revision;
+  version =
+    let
+      cargo = builtins.fromTOML (builtins.readFile "${nushell}/Cargo.toml");
+    in
+    cargo.package.version;
   src = nushell;
 
   buildNoDefaultFeatures = !withDefaultFeatures;
