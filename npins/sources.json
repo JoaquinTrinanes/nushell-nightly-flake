@@ -23,9 +23,9 @@
         "repo": "nushell"
       },
       "branch": "main",
-      "revision": "3f75b6b371a8befc8b1b25d693265144b0344b13",
-      "url": "https://github.com/nushell/nushell/archive/3f75b6b371a8befc8b1b25d693265144b0344b13.tar.gz",
-      "hash": "0j2vki4s8wy09205mbr8xbrj769dhfw9d25hiv1igy6qm7mwjr92"
+      "revision": "e05f3876321ddcf0a7bd65b6420254345b38675f",
+      "url": "https://github.com/nushell/nushell/archive/e05f3876321ddcf0a7bd65b6420254345b38675f.tar.gz",
+      "hash": "1lpf03by8s6vbki8bs451fzkgkzjcbm2ds35798jvcms5zl90flw"
     }
   },
   "version": 3
