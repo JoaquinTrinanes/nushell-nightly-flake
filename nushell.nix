@@ -8,9 +8,6 @@
   pkg-config,
   python3,
   xorg,
-  Security,
-  Libsystem,
-  AppKit,
   nghttp2,
   libgit2,
   doCheck ? true,
@@ -18,6 +15,7 @@
   additionalFeatures ? (defaultFeatures: defaultFeatures),
   testers,
   nix-update-script,
+  apple-sdk_11,
 }:
 let
   inherit (import ./npins) nushell;
@@ -59,13 +57,11 @@ rustPlatform.buildRustPackage {
       zstd
     ]
     ++ lib.optionals stdenv.isDarwin [
-      Libsystem
-      Security
+      apple-sdk_11
       zlib
     ]
     ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ xorg.libX11 ]
     ++ lib.optionals (withDefaultFeatures && stdenv.isDarwin) [
-      AppKit
       nghttp2
       libgit2
     ];

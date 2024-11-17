@@ -77,8 +77,6 @@
               pluginPackageNames = map (p: "nu_plugin_${p}") plugins;
               nushell = pkgs.callPackage ./nushell.nix {
                 doCheck = false;
-                inherit (pkgs.darwin.apple_sdk_11_0) Libsystem;
-                inherit (pkgs.darwin.apple_sdk_11_0.frameworks) AppKit Security;
                 rustPlatform = pkgs.makeRustPlatform {
                   cargo = toolchain;
                   rustc = toolchain;
