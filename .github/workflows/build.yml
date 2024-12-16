@@ -30,8 +30,6 @@ jobs:
     runs-on: ${{ matrix.os == 'linux' && 'ubuntu-latest' || 'macos-latest' }}
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
       - name: Setup QEMU
         if: matrix.os == 'linux' && matrix.arch == 'aarch64'
         uses: docker/setup-qemu-action@v3
