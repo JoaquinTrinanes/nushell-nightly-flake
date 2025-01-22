@@ -10,10 +10,10 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
-      "version": "v1.0.1",
-      "revision": "0f9255e01c2351cc7d116c072cb317785dd33b33",
-      "url": "https://api.github.com/repos/edolstra/flake-compat/tarball/v1.0.1",
-      "hash": "0m9grvfsbwmvgwaxvdzv6cmyvjnlww004gfxjvcl806ndqaxzy4j"
+      "version": "v1.1.0",
+      "revision": "ff81ac966bb2cae68946d5ed5fc4994f96d0ffec",
+      "url": "https://api.github.com/repos/edolstra/flake-compat/tarball/v1.1.0",
+      "hash": "19d2z6xsvpxm184m41qrpi1bplilwipgnzv9jy17fgw421785q1m"
     },
     "nushell": {
       "type": "Git",
@@ -23,9 +23,9 @@
         "repo": "nushell"
       },
       "branch": "main",
-      "revision": "73c08fcb2b9a55c8ef426f36e74f7ca0f75bad6a",
-      "url": "https://github.com/nushell/nushell/archive/73c08fcb2b9a55c8ef426f36e74f7ca0f75bad6a.tar.gz",
-      "hash": "1wc7x06ymlpl8r8xgrl93hmh1yvbzzbdb3hansj5y4z4z9s0dj7a"
+      "revision": "befeddad59e2dace0e687d7eed8ca961dc570412",
+      "url": "https://github.com/nushell/nushell/archive/befeddad59e2dace0e687d7eed8ca961dc570412.tar.gz",
+      "hash": "12yv63d5fyskqw4rjkffiv3mx75nkmn30kx15rw5ps7a4nq77s3l"
     }
   },
   "version": 3
