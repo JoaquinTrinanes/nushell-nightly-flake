@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          ssh-key: ${{ secrets.COMMIT_KEY }}
       - uses: cachix/install-nix-action@v25
       - uses: DeterminateSystems/magic-nix-cache-action@v3
       - name: Setup git
