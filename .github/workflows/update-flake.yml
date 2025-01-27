@@ -12,7 +12,6 @@ jobs:
         with:
           ssh-key: ${{ secrets.COMMIT_KEY }}
       - uses: cachix/install-nix-action@v25
-      - uses: DeterminateSystems/magic-nix-cache-action@v3
       - run: |
           git config user.name 'flake updater'
           git config user.email 'noreply@github.com'

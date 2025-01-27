@@ -43,5 +43,4 @@ jobs:
         with:
           name: nushell-nightly
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-      - uses: DeterminateSystems/magic-nix-cache-action@v3
       - run: nix build .#${{ matrix.package }} --option system ${{ matrix.arch }}-${{ matrix.os }}
