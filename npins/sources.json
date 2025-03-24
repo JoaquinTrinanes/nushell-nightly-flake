@@ -10,6 +10,7 @@
       "pre_releases": false,
       "version_upper_bound": null,
       "release_prefix": null,
+      "submodules": false,
       "version": "v1.1.0",
       "revision": "ff81ac966bb2cae68946d5ed5fc4994f96d0ffec",
       "url": "https://api.github.com/repos/edolstra/flake-compat/tarball/v1.1.0",
@@ -23,10 +24,11 @@
         "repo": "nushell"
       },
       "branch": "main",
+      "submodules": false,
       "revision": "f33a26123c9d903f6f9e00eb18903d6aed6fad51",
       "url": "https://github.com/nushell/nushell/archive/f33a26123c9d903f6f9e00eb18903d6aed6fad51.tar.gz",
       "hash": "1mm69m8ydxifka6ljp8fazsd8b1c5s75ghca3k2dh7g882da504q"
     }
   },
-  "version": 3
+  "version": 5
 }
