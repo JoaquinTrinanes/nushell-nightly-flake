@@ -25,9 +25,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "5fe97b8d590ea84343bc0ff5d01631e16b4b5c7f",
-      "url": "https://github.com/nushell/nushell/archive/5fe97b8d590ea84343bc0ff5d01631e16b4b5c7f.tar.gz",
-      "hash": "1gf9gfsd8216ws3xsfx98xg8w5wix4d28dkyz49yng3fbmmaljjr"
+      "revision": "49d86855ce6c5c0df785dc5f4b786707d650a83c",
+      "url": "https://github.com/nushell/nushell/archive/49d86855ce6c5c0df785dc5f4b786707d650a83c.tar.gz",
+      "hash": "1nxr97g69hsnm9abiy1v6fh99k1li2f2hsp77g1jncrqgrxlhhdb"
     }
   },
   "version": 5
