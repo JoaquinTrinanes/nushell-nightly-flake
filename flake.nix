@@ -29,7 +29,7 @@
       ];
 
       flake.overlays.default =
-        final: _prev:
+        final: prev:
         let
           inherit (final.stdenv.hostPlatform) system;
           packages = inputs.self.packages.${system};
@@ -41,9 +41,10 @@
             let
               pluginPkgs = lib.filterAttrs (name: _: lib.hasPrefix "nu_plugin_" name) packages;
             in
-            lib.mapAttrs' (
+            prev.nushellPlugins
+            // (lib.mapAttrs' (
               name: value: lib.nameValuePair (lib.removePrefix "nu_plugin_" name) value
-            ) pluginPkgs;
+            ) pluginPkgs);
         };
 
       perSystem =
