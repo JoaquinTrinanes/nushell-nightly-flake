@@ -96,6 +96,15 @@
             {
               inherit nushell;
               default = nushell;
+              tree-sitter-nu =
+                let
+                  inherit (import ./npins) tree-sitter-nu;
+                in
+                pkgs.tree-sitter.buildGrammar {
+                  language = "nu";
+                  version = tree-sitter-nu.revision;
+                  src = tree-sitter-nu;
+                };
             }
             // (lib.genAttrs (lib.remove "nu_plugin_query" pluginPackageNames) mkPlugin)
             // {

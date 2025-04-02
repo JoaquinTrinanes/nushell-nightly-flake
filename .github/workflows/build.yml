@@ -8,6 +8,7 @@ on:
       - "npins/**"
       - "flake.*"
       - "nushell.nix"
+      - "tree-sitter-nu.nix"
 jobs:
   build:
     strategy:
@@ -20,6 +21,7 @@ jobs:
             nu_plugin_inc,
             nu_plugin_query,
             nu_plugin_polars,
+            tree-sitter-nu,
           ]
         os: [linux, darwin]
         arch: [aarch64, x86_64]
