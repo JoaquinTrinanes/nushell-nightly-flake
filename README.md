@@ -5,12 +5,13 @@
 - Handy overlay
 - Hourly builds to live on the bleeding edge
 - It's own binary cache
+- Nightly `tree-sitter-nu` build
 - Official nushell plugins:
-  - nu_plugin_formats
-  - nu_plugin_gstat
-  - nu_plugin_inc
-  - nu_plugin_query
-  - nu_plugin_polars
+  - `nu_plugin_formats`
+  - `nu_plugin_gstat`
+  - `nu_plugin_inc`
+  - `nu_plugin_query`
+  - `nu_plugin_polars`
 
 ## Getting started
 
