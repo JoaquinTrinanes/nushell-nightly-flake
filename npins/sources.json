@@ -25,9 +25,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "651a8716fbc3f66402a64dc70a9557f6a77c6236",
-      "url": "https://github.com/nushell/nushell/archive/651a8716fbc3f66402a64dc70a9557f6a77c6236.tar.gz",
-      "hash": "0fy1jzblzfqzimjafvhdd8fqqjkszdncdyni16kb9im3kdjx7k9k"
+      "revision": "cda15d91ddcd24e2168db7cce4fdfbe2f77db68f",
+      "url": "https://github.com/nushell/nushell/archive/cda15d91ddcd24e2168db7cce4fdfbe2f77db68f.tar.gz",
+      "hash": "06zz5jsm7hw8y18mccpdi8hf2b9i7nbjiy9mbjfzjwjvx84cg28p"
     },
     "tree-sitter-nu": {
       "type": "Git",
