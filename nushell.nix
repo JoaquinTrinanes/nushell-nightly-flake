@@ -32,39 +32,31 @@ rustPlatform.buildRustPackage {
 
   buildNoDefaultFeatures = !withDefaultFeatures;
 
-  # Our source doesn't contain a .git folder from which to extract the hash,
-  # so the build script is patched to fallback to our own hash instead of an empty string.
-  # This is only relevant for showing the current commit when running the `version` command
-  patchPhase = ''
-    runHook prePatch
-
-    substituteInPlace 'crates/nu-cmd-lang/build.rs' --replace-fail 'get_git_hash().unwrap_or_default();' 'get_git_hash().unwrap_or("${nushell.revision}".into());'
-    runHook postPatch
-  '';
+  env.NU_COMMIT_HASH = nushell.revision;
 
   cargoLock = {
     lockFile = "${nushell}/Cargo.lock";
     allowBuiltinFetchGit = true;
   };
-  nativeBuildInputs =
-    [ pkg-config ]
-    ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ python3 ]
-    ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = [
+    pkg-config
+  ]
+  ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ python3 ]
+  ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
 
-  buildInputs =
-    [
-      openssl
-      zstd
-    ]
-    ++ lib.optionals stdenv.isDarwin [
-      apple-sdk_11
-      zlib
-    ]
-    ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ xorg.libX11 ]
-    ++ lib.optionals (withDefaultFeatures && stdenv.isDarwin) [
-      nghttp2
-      libgit2
-    ];
+  buildInputs = [
+    openssl
+    zstd
+  ]
+  ++ lib.optionals stdenv.isDarwin [
+    apple-sdk_11
+    zlib
+  ]
+  ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ xorg.libX11 ]
+  ++ lib.optionals (withDefaultFeatures && stdenv.isDarwin) [
+    nghttp2
+    libgit2
+  ];
 
   checkPhase = ''
     runHook preCheck
