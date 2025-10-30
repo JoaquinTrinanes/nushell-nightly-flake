@@ -63,7 +63,7 @@
             inherit system;
             overlays = [ inputs.rust-overlay.overlays.default ];
           };
-          formatter = pkgs.nixfmt-rfc-style;
+          formatter = pkgs.nixfmt;
 
           devShells.default = pkgs.mkShell { packages = builtins.attrValues { inherit (pkgs) npins; }; };
           packages =
