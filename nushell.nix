@@ -15,7 +15,7 @@
   additionalFeatures ? (defaultFeatures: defaultFeatures),
   testers,
   nix-update-script,
-  apple-sdk_11,
+  curlMinimal,
 }:
 let
   inherit (import ./npins) nushell;
@@ -45,18 +45,18 @@ rustPlatform.buildRustPackage {
   ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
 
   buildInputs = [
-    openssl
     zstd
   ]
-  ++ lib.optionals stdenv.isDarwin [
-    apple-sdk_11
-    zlib
-  ]
-  ++ lib.optionals (withDefaultFeatures && stdenv.isLinux) [ xorg.libX11 ]
-  ++ lib.optionals (withDefaultFeatures && stdenv.isDarwin) [
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [ zlib ]
+  ++ lib.optionals (withDefaultFeatures && stdenv.hostPlatform.isLinux) [ xorg.libX11 ]
+  ++ lib.optionals (withDefaultFeatures && stdenv.hostPlatform.isDarwin) [
     nghttp2
     libgit2
   ];
+
+  checkInputs =
+    lib.optionals stdenv.hostPlatform.isDarwin [ curlMinimal ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [ openssl ];
 
   checkPhase = ''
     runHook preCheck
@@ -74,7 +74,7 @@ rustPlatform.buildRustPackage {
   buildFeatures = additionalFeatures [ ];
 
   meta = with lib; {
-    description = "A modern shell written in Rust";
+    description = "Modern shell written in Rust";
     homepage = "https://www.nushell.sh/";
     license = licenses.mit;
     maintainers = [ ];
