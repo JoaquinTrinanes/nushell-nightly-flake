@@ -110,7 +110,13 @@
             // {
               nu_plugin_query = (mkPlugin "nu_plugin_query").overrideAttrs (
                 _final: prev: {
-                  buildInputs = prev.buildInputs ++ lib.optionals pkgs.stdenv.isDarwin [ pkgs.curl ];
+                  buildInputs =
+                    prev.buildInputs ++ [ pkgs.openssl ] ++ lib.optionals pkgs.stdenv.isDarwin [ pkgs.curl ];
+                }
+              );
+              nu_plugin_gstat = (mkPlugin "nu_plugin_gstat").overrideAttrs (
+                _final: prev: {
+                  buildInputs = prev.buildInputs ++ [ pkgs.openssl ];
                 }
               );
             };
