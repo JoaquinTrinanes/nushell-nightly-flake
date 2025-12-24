@@ -140,6 +140,7 @@
                     runtimeInputs = builtins.attrValues { inherit (pkgs) npins jq git; };
                     text = ''
                       BEFORE="${nushell.revision}"
+                      npins upgrade
                       npins update
                       AFTER="$(jq -j .pins.nushell.revision ./npins/sources.json)"
 
