@@ -9,9 +9,9 @@
       },
       "branch": "master",
       "submodules": false,
-      "revision": "236f248441a986331cda53b039e7f9fd96e03635",
-      "url": "https://github.com/NixOS/flake-compat/archive/236f248441a986331cda53b039e7f9fd96e03635.tar.gz",
-      "hash": "sha256-Eyg78VjLzKNG2XkqLqylSvHGAwsP8gsvmUHtZxQwPq4="
+      "revision": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
+      "url": "https://github.com/NixOS/flake-compat/archive/5edf11c44bc78a0d334f6334cdaf7d60d732daab.tar.gz",
+      "hash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns="
     },
     "nushell": {
       "type": "Git",
@@ -22,9 +22,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "16f60b25c49643818400d64cf9427f0aef3dc827",
-      "url": "https://github.com/nushell/nushell/archive/16f60b25c49643818400d64cf9427f0aef3dc827.tar.gz",
-      "hash": "sha256-e7wq9ewZNy11nCJdvpuvrKUHzH7a/9g3WJv4kYswhZc="
+      "revision": "2be6d643aef34844311cfdd827d0936bf68c4511",
+      "url": "https://github.com/nushell/nushell/archive/2be6d643aef34844311cfdd827d0936bf68c4511.tar.gz",
+      "hash": "sha256-/0A2FrMrxExs2XrL+gd15v1M1e135PSeJ76/MB8cNTE="
     },
     "tree-sitter-nu": {
       "type": "Git",
