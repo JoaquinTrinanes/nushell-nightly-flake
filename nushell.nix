@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage {
     let
       cargo = builtins.fromTOML (builtins.readFile "${nushell}/Cargo.toml");
     in
-    cargo.package.version;
+    cargo.workspace.package.version;
   src = nushell;
 
   buildNoDefaultFeatures = !withDefaultFeatures;
