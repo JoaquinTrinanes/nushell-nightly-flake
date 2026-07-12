@@ -27,7 +27,6 @@ jobs:
         arch: [aarch64, x86_64]
         exclude:
           - os: darwin
-            arch: aarch64
       fail-fast: false
     runs-on: ${{ matrix.os == 'linux' && 'ubuntu-latest' || 'macos-latest' }}
     steps:
