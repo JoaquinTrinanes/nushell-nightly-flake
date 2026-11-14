@@ -16,6 +16,7 @@
   testers,
   nix-update-script,
   curlMinimal,
+  sqlite,
 }:
 let
   inherit (import ./npins) nushell;
@@ -46,12 +47,13 @@ rustPlatform.buildRustPackage {
 
   buildInputs = [
     zstd
+    libgit2
+    sqlite
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [ zlib ]
   ++ lib.optionals (withDefaultFeatures && stdenv.hostPlatform.isLinux) [ libx11 ]
   ++ lib.optionals (withDefaultFeatures && stdenv.hostPlatform.isDarwin) [
     nghttp2
-    libgit2
   ];
 
   checkInputs =
