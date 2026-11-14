@@ -118,6 +118,11 @@
                   buildInputs = prev.buildInputs ++ [ pkgs.openssl ];
                 }
               );
+              nu_plugin_polars = (mkPlugin "nu_plugin_gstat").overrideAttrs (
+                _final: prev: {
+                  buildInputs = prev.buildInputs ++ [ pkgs.aws-lc ];
+                }
+              );
             };
 
           apps =
